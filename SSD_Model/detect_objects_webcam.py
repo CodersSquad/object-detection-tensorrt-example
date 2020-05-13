@@ -161,12 +161,13 @@ def main():
     if args.camera == True:
         print('Running webcam:', args.camera)
         # Define the video stream
-        cap = cv2.VideoCapture(0)  # Change only if you have more than one webcams
+        # cap = cv2.VideoCapture(0)  # Change only if you have more than one webcams
 
         # Loop for running inference on frames from the webcam
         while True:
             # Read frame from camera (and expand its dimensions to fit)
-            ret, image_np = cap.read()
+            # ret, image_np = cap.read()
+            image_np = cv2.imread("test_image.jpeg")
 
             # Actually run inference
             detection_out, keep_count_out = trt_inference_wrapper.infer_webcam(image_np)
@@ -180,11 +181,12 @@ def main():
             final_img = np.asarray(img_pil)
 
             # Display output
-            cv2.imshow('object detection', final_img)
+            #cv2.imshow('object detection', final_img)
+            cv2.imwrite("new_image.jpg", final_image)
 
-            if cv2.waitKey(25) & 0xFF == ord('q'):
-                cv2.destroyAllWindows()
-                break
+            #if cv2.waitKey(25) & 0xFF == ord('q'):
+            #    cv2.destroyAllWindows()
+            #    break
 
 if __name__ == '__main__':
     main()
